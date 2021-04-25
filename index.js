@@ -10,6 +10,9 @@ const errorHandler  = require('./src/helpers/errorHandler');
 
 const app = express();
 
+// Welcome message
+app.get('/', (req, res) => res.send('Welcome to Gateway api'));
+
 //Use cors
 app.use(cors());
 
