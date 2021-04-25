@@ -1,9 +1,9 @@
 //Middleware for handling errors
 module.exports = (err, res) => {
-    const {statusCode, message} = err;
-    res.status(statusCode).json({
-        status: "error",
-        statusCode,
-        message
+    const {status, data, errors} = err;
+    res.status(status).json({
+        status,
+        data,
+        errors
     });
 };

@@ -1,20 +1,28 @@
 class BaseError extends Error {
-    constructor(statusCode, message) {
+    constructor(status, errors) {
         super();
-        this.statusCode = statusCode;
-        this.message = message;
+        this.status = status;
+        this.errors = errors;
     }
 }
 
 class DoesNotExists extends BaseError {
     constructor(object) {
-        const message = `${object} does not exists`;
-        const statusCode = 404;
-        super(statusCode, message);
+        const errors = `${object} does not exists`;
+        const status = 404;
+        super(status, errors);
+    }
+}
+
+class ValidationError extends BaseError {
+    constructor(errors) {
+        const status = 400;
+        super(status, errors)
     }
 }
 
 module.exports = {
     BaseError,
-    DoesNotExists
+    DoesNotExists,
+    ValidationError
 };

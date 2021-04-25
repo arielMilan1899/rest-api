@@ -3,11 +3,11 @@ const router = require('express').Router();
 const controller = require('./controller');
 
 //route for get all gateways
-router.route('/')
-    .get(controller.index);
-//route for get a single gateway by id
-router.route('/:id')
-    .get(controller.get);
+router.route('/').get(controller.index);
+//route for get a single gateway by serialNumber
+router.route('/:serialNumber').get(controller.get);
+//route for create a gateway
+router.route('/add').post(controller.validate('add'), controller.add);
 
 //Export Gateway routes
 module.exports = router;

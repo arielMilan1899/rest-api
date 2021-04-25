@@ -2,15 +2,17 @@
 const {DoesNotExists} = require("../helpers/error");
 
 //All stored gateways
-let gateways = [];
+let gateways = [{serialNumber: '1', name: 'ariel', ipv4: '123.123.123.123'}];
 
 //Gateway object
 class Gateway {
-    constructor(id, name, ipv4) {
-        this.id = id;
+    constructor(serialNumber, name, ipv4) {
+        this.serialNumber = serialNumber;
         this.name = name;
         this.ipv4 = ipv4;
         this.peripherals = [];
+
+        gateways.push(this);
     }
 
     //Get all stored gateways
@@ -18,9 +20,9 @@ class Gateway {
         return gateways;
     }
 
-    //Get a single gateway by id
-    static get(id) {
-        const gateway = gateways.find((gateway) => gateway.id === id);
+    //Get a single gateway by serialNumber
+    static get(serialNumber) {
+        const gateway = gateways.find((gateway) => gateway.serialNumber === serialNumber);
 
         if (!gateway) {
             throw new DoesNotExists(Gateway.name)
@@ -32,6 +34,5 @@ class Gateway {
 
 
 module.exports = {
-    Gateway,
-    gateways
+    Gateway
 };
