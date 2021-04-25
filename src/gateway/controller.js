@@ -154,7 +154,7 @@ const validate = (method) => {
 
     //If are adding a new gateway, then the serialNumber field will be validate too
     if (method === 'add') {
-        return validators + [serialNumber];
+        validators.push(serialNumber);
     }
 
     return validators;

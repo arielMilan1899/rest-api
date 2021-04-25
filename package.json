@@ -16,6 +16,9 @@
     "express-validator": "^6.10.1"
   },
   "devDependencies": {
-    "ava": "^3.15.0"
+    "ava": "^3.15.0",
+    "proxyquire": "^2.0.1",
+    "sinon": "*",
+    "uuid": "*"
   }
 }
