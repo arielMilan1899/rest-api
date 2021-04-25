@@ -128,6 +128,21 @@ const validate = (method) => {
                     }),
             ]
         }
+        case 'update': {
+            return [
+                body('name')
+                    .isString().withMessage('name field must be a valid string').bail()
+                    .not().isEmpty().withMessage('name field must not be empty'),
+                body('ipv4')
+                    .isString().withMessage('ipv4 field must be a valid string').bail()
+                    .custom(value => {
+                        if (!validateIpv4(value)) {
+                            throw new Error('invalid IP address');
+                        }
+                        return true;
+                    }),
+            ]
+        }
     }
 };
 
