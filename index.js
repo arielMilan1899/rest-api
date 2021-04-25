@@ -8,9 +8,6 @@ const { PORT } = require('./config');
 
 const app = express();
 
-// Welcome message
-app.get('/', (req, res) => res.send('Welcome to Express'));
-
 //Use cors
 app.use(cors());
 
@@ -23,5 +20,5 @@ app.use('/api', apiRoutes);
 
 // Launch app to the specified port
 app.listen(PORT, function () {
-    console.log("Running FirstRest on Port " + PORT);
+    console.log("Running on Port " + PORT);
 });
