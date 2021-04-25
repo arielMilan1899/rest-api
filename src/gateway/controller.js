@@ -53,6 +53,34 @@ const add = async (req, res, next) => {
         data: gateway
     });
 };
+//For update a gateway
+const update = async (req, res, next) => {
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return next(new ValidationError(errors.array()));
+    }
+
+    const serialNumber = req.params.serialNumber;
+    let gateway;
+
+    try {
+        gateway = await Gateway.get(serialNumber);
+    } catch (err) {
+        return next(err);
+    }
+
+    const {name, ipv4} = req.body;
+
+    gateway.update(name, ipv4);
+
+    const status = 200;
+    res.status(status).json({
+        status,
+        data: gateway
+    });
+};
 //For remove a gateway
 const remove = async (req, res, next) => {
     const serialNumber = req.params.serialNumber;
@@ -64,6 +92,7 @@ const remove = async (req, res, next) => {
     } catch (err) {
         return next(err);
     }
+
     const status = 200;
     res.status(status).json({
         status,
@@ -106,6 +135,7 @@ module.exports = {
     index,
     get,
     add,
+    update,
     remove,
     validate
 };

@@ -15,6 +15,12 @@ class Gateway {
         gateways.push(this);
     }
 
+    //Update gateway
+    update(name, ipv4) {
+        this.name = name;
+        this.ipv4 = ipv4;
+    }
+
     //Remove gateway from storage
     remove() {
         gateways = gateways.filter(value => value.serialNumber !== this.serialNumber);
