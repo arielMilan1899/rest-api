@@ -1,16 +1,23 @@
 //Peripheral models.js
-
-//All stored peripherals
-let peripherals = [];
+const {DoesNotExists} = require("../helpers/error");
 
 //Peripheral object
 class Peripheral {
-    constructor(id, vendor, status, gatewaySerialNumber) {
-        this.id = id;
+    //All stored peripherals
+    static #peripherals = [];
+    //Current id for peripherals
+    static #currentId = 0;
+
+    constructor(vendor, status, gatewaySerialNumber) {
+        this.id = Peripheral.#currentId;
         this.vendor = vendor;
         this.status = status;
         this.gatewaySerialNumber = gatewaySerialNumber;
         this.createdOn = Date.now();
+
+        //push the new gateway to storage and increment currentId
+        Peripheral.#peripherals.push(this);
+        Peripheral.#currentId += 1;
     }
 
     //Update gateway
@@ -22,12 +29,23 @@ class Peripheral {
 
     //Remove gateway from storage
     remove() {
-        peripherals = peripherals.filter(value => value.id !== this.id);
+        Peripheral.#peripherals = Peripheral.#peripherals.filter(value => value.id !== this.id);
     }
 
     //Get all stored peripherals by a gatewaySerialNumber
     static filter(gatewaySerialNumber) {
-        return peripherals.filter(value => value.gatewaySerialNumber === gatewaySerialNumber);
+        return Peripheral.#peripherals.filter(value => value.gatewaySerialNumber === gatewaySerialNumber);
+    }
+
+    //Get a single peripheral by id
+    static get(id) {
+        const peripheral = Peripheral.#peripherals.find((peripheral) => peripheral.id === id);
+
+        if (!peripheral) {
+            throw new DoesNotExists(Peripheral.name)
+        }
+
+        return peripheral;
     }
 }
 
