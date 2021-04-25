@@ -2,7 +2,7 @@
 const {DoesNotExists} = require("../helpers/error");
 
 //All stored gateways
-let gateways = [{serialNumber: '1', name: 'ariel', ipv4: '123.123.123.123'}];
+let gateways = [];
 
 //Gateway object
 class Gateway {
@@ -13,6 +13,15 @@ class Gateway {
         this.peripherals = [];
 
         gateways.push(this);
+    }
+
+    //Remove gateway from storage
+    remove() {
+        gateways = gateways.filter(value => value.serialNumber !== this.serialNumber);
+
+        for (let peripheral of this.peripherals) {
+            peripheral.remove();
+        }
     }
 
     //Get all stored gateways

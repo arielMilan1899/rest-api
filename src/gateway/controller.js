@@ -53,6 +53,23 @@ const add = async (req, res, next) => {
         data: gateway
     });
 };
+//For remove a gateway
+const remove = async (req, res, next) => {
+    const serialNumber = req.params.serialNumber;
+    let gateway;
+
+    try {
+        gateway = await Gateway.get(serialNumber);
+        await gateway.remove();
+    } catch (err) {
+        return next(err);
+    }
+    const status = 200;
+    res.status(status).json({
+        status,
+        data: gateway
+    });
+};
 //For validate gateway fields
 const validate = (method) => {
     switch (method) {
@@ -89,6 +106,7 @@ module.exports = {
     index,
     get,
     add,
+    remove,
     validate
 };
 
