@@ -1,9 +1,10 @@
-//models.js
-const {DoesNotExists} = require("./helpers/error");
+//Gateway models.js
+const {DoesNotExists} = require("../helpers/error");
 
+//All stored gateways
 let gateways = [];
-let peripherals = [];
 
+//Gateway object
 class Gateway {
     constructor(id, name, ipv4) {
         this.id = id;
@@ -12,10 +13,12 @@ class Gateway {
         this.peripherals = [];
     }
 
+    //Get all stored gateways
     static all() {
         return gateways;
     }
 
+    //Get a single gateway by id
     static get(id) {
         const gateway = gateways.find((gateway) => gateway.id === id);
 
@@ -27,19 +30,8 @@ class Gateway {
     }
 }
 
-class Peripheral {
-    constructor(id, vendor, status, gatewayID) {
-        this.id = id;
-        this.vendor = vendor;
-        this.status = status;
-        this.gatewayID = gatewayID;
-        this.createdOn = Date.now();
-    }
-}
 
 module.exports = {
     Gateway,
-    Peripheral,
-    gateways,
-    peripherals
+    gateways
 };
