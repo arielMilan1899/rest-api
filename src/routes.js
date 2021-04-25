@@ -13,12 +13,8 @@ router.get('/', function(req, res) {
 // routes
 router.route('/gateway')
     .get(controller.index)
-    .post(controller.add);
 router.route('/gateway/:id')
-    .get(controller.view)
-    .patch(controller.update)
-    .put(controller.update)
-    .delete(controller.delete);
+    .get(controller.get)
 
 //Export API routes
 module.exports = router;

@@ -2,15 +2,32 @@
 let {gateways, peripherals, Gateway, Peripheral} = require('./models');
 
 //For index
-function index(req, res) {
-    res.json({
-        status: "success",
-        data: Gateway.all()
-    });
-}
+const index = async (req, res, next) => {
+    let gateways;
+    try {
+        gateways = await Gateway.all();
+    } catch (error) {
+        return next(error);
+    }
 
-function get(req, res) {
-    const id = res.param.id;
+    res.status(200).json(gateways);
+};
 
-}
+const get = async (req, res, next) => {
+    const id = req.params.id;
+    let gateway;
+
+    try {
+        gateway = await Gateway.get(id)
+    } catch (err) {
+        return next(err);
+    }
+
+    res.status(200).json(gateway);
+};
+
+module.exports = {
+    index,
+    get,
+};
 

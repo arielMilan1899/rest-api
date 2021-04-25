@@ -1,3 +1,6 @@
+//models.js
+const {DoesNotExists} = require("./helpers/error");
+
 let gateways = [];
 let peripherals = [];
 
@@ -9,12 +12,18 @@ class Gateway {
         this.peripherals = [];
     }
 
-    static all(){
+    static all() {
         return gateways;
     }
 
-    static get(id){
-        return gateways.find((gateway) => gateway.id === id)
+    static get(id) {
+        const gateway = gateways.find((gateway) => gateway.id === id);
+
+        if (!gateway) {
+            throw new DoesNotExists(Gateway.name)
+        }
+
+        return gateway;
     }
 }
 
@@ -32,5 +41,5 @@ module.exports = {
     Gateway,
     Peripheral,
     gateways,
-    peripheral
+    peripherals
 };
