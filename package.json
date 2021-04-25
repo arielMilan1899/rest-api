@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +14,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-validator": "^6.10.1"
+  },
+  "devDependencies": {
+    "ava": "^3.15.0"
   }
 }
