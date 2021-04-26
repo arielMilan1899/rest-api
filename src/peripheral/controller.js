@@ -3,6 +3,7 @@ const {body, validationResult} = require('express-validator');
 let {Peripheral} = require('./models');
 const {ValidationError} = require("../helpers/error");
 const {Gateway} = require('../gateway/models');
+const {MAX_GATEWAY_PERIPHERALS} = require('../../config');
 
 //For create a new peripheral
 const add = async (req) => {
@@ -16,7 +17,7 @@ const add = async (req) => {
 
     const {vendor, status, gatewaySerialNumber} = req.body;
     //Initialize the new peripheral object
-    return new Peripheral(vendor, status, gatewaySerialNumber);
+    return Peripheral.repository.add(vendor, status, gatewaySerialNumber);
 };
 //For update a peripheral
 const update = async (req) => {
@@ -30,11 +31,11 @@ const update = async (req) => {
 
     const id = req.params.id;
     //Get the peripheral using id
-    let peripheral = await Peripheral.get(id);
+    let peripheral = await Peripheral.repository.get(id);
 
     const {vendor, status, gatewaySerialNumber} = req.body;
     //Update the peripheral with the new values
-    peripheral.update(vendor, status, gatewaySerialNumber);
+    await Peripheral.repository.update(peripheral, vendor, status, gatewaySerialNumber);
 
     return peripheral;
 };
@@ -43,10 +44,10 @@ const remove = async (req) => {
     const id = req.params.id;
 
     //Get the peripheral using id
-    let peripheral = await Peripheral.get(id);
+    let peripheral = await Peripheral.repository.get(id);
 
     //Remove the peripheral from the storage
-    await peripheral.remove();
+    await Peripheral.repository.remove(peripheral);
 
     return 'Peripheral was successful deleted';
 };
@@ -64,13 +65,14 @@ const validate = (method) => {
                 let gateway;
 
                 try {
-                    gateway = await Gateway.get(value)
+                    gateway = await Gateway.repository.get(value)
                 } catch ({errors}) {
                     throw errors;
                 }
 
-                if (method === 'add' && gateway.peripherals.length === 10) {
-                    return Promise.reject('A gateway must not have more than 10 peripherals');
+                if (method === 'add' && gateway.peripherals.length === MAX_GATEWAY_PERIPHERALS) {
+                    return Promise
+                        .reject(`A gateway must not have more than ${MAX_GATEWAY_PERIPHERALS} peripherals`);
                 }
                 return true;
             }),
