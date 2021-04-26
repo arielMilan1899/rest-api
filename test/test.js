@@ -38,12 +38,8 @@ describe("Test Gateway endpoints", () => {
         it("It should return the gateway", (done) => {
             Gateway.repository.add('serialNumber', 'name', '192.168.100.1');
             Peripheral.repository.add('vendor', 'online', 'serialNumber');
-            const data = {
-                serialNumber: 'serialNumber'
-            };
             chai.request(app)
-                .get("/gateways")
-                .send(data)
+                .get("/gateways/serialNumber")
                 .end((err, response) => {
                     response.should.have.status(200);
                     const gateway = response.body.data;
@@ -56,12 +52,8 @@ describe("Test Gateway endpoints", () => {
                 });
         });
         it("It should return an error", (done) => {
-            const data = {
-                serialNumber: 'serialNumber'
-            };
             chai.request(app)
-                .get("/gateways")
-                .send(data)
+                .get("/gateways/serialNumber")
                 .end((err, response) => {
                     response.should.have.status(404);
                     response.body.errors.should.be.eq('Gateway does not exists');

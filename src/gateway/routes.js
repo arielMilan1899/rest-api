@@ -5,6 +5,8 @@ const controller = require('./controller');
 
 //route for get gateways.
 router.addRoute('/', 'get', [], controller.get);
+//route for get a single gateway by serialNumber
+router.addRoute('/:serialNumber', 'get', [], controller.get);
 //route for create a gateway
 router.addRoute('/add', 'post', controller.validate('add'), controller.add);
 //route for update a gateway

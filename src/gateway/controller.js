@@ -6,7 +6,7 @@ const {validateIpv4} = require("../helpers/validator");
 
 //For get a single gateway
 const get = async (req) => {
-    const {serialNumber} = req.body;
+    const {serialNumber} = req.params;
 
     // If serialNumber is passed then will only return a single gateway
     if (serialNumber) {

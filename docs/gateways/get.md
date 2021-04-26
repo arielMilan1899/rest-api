@@ -1,7 +1,7 @@
 # Get single Gateway
 Used to get a single stored gateway providing their serialNumber
 
-**URL** : `/gateways`
+**URL** : `/gateways/:serialNumber`
 
 **Parameters constrain** :
 
@@ -11,7 +11,7 @@ Used to get a single stored gateway providing their serialNumber
 
 **Usage** : 
 ```bash
-curl -X GET -H 'Content-Type: application/json' -d '{"serialNumber":"serialNumber"}' /gateways
+curl -X GET -H 'Content-Type: application/json' -d '{"serialNumber":"serialNumber"}' /gateways/:serialNumber
 ```
 
 ### Success Responses
