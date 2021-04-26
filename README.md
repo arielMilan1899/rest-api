@@ -37,6 +37,9 @@ npm test
 
 ## Online build
 
+Vercel will generate a specific build for each commit/push.
+
+This is the production build:
 * [rest-api](https://rest-api-theta.vercel.app/)
 
 ## Usage Guide
