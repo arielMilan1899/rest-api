@@ -22,6 +22,11 @@ npm install
 npm start
 ```
 
+### Run Tests
+```bash
+npm test
+```
+
 ## Usage Guide
 
 ### Gateway endpoints

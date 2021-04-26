@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ava",
+    "test": "mocha",
     "start": "node index.js"
   },
   "keywords": [],
@@ -17,9 +17,8 @@
     "express-validator": "^6.10.1"
   },
   "devDependencies": {
-    "ava": "^3.15.0",
-    "proxyquire": "^2.0.1",
-    "sinon": "*",
-    "uuid": "*"
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "mocha": "^8.3.2"
   }
 }

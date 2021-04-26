@@ -6,7 +6,7 @@ const cors = require('cors');
 const {PORT} = require('./config');
 const gatewayRoutes = require("./src/gateway/routes");
 const peripheralRoutes = require("./src/peripheral/routes");
-const errorHandler  = require('./src/helpers/errorHandler');
+const errorHandler = require('./src/helpers/errorHandler');
 
 const app = express();
 
@@ -30,6 +30,6 @@ app.use((err, req, res, next) => {
 });
 
 // Launch app to the specified port
-app.listen(PORT, function () {
+module.exports = app.listen(PORT, function () {
     console.log("Running on Port " + PORT);
 });

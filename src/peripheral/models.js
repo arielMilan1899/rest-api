@@ -27,6 +27,11 @@ class Storage {
 
 class PeripheralRepository {
 
+    //Get all stored peripherals
+    static all() {
+        return Storage.data;
+    }
+
     //Get a single peripheral by id
     static get(id) {
         const peripheral = Storage.data.find((peripheral) => peripheral.id === id);
@@ -65,7 +70,11 @@ class PeripheralRepository {
         Storage.data = Storage.data.filter(value => value.id !== peripheral.id);
     }
 
-
+    //Remove all peripherals
+    static removeAll() {
+        Storage.data = [];
+        Storage.currentId = 0;
+    }
 }
 
 module.exports = {

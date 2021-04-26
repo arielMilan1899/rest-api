@@ -4,21 +4,25 @@ const {Gateway} = require('./models');
 const {ValidationError} = require("../helpers/error");
 const {validateIpv4} = require("../helpers/validator");
 
-//For get all gateways
-const getAll = async () => {
+//For get a single gateway
+const get = async (req) => {
+    const {serialNumber} = req.body;
+
+    // If serialNumber is passed then will only return a single gateway
+    if (serialNumber) {
+        //Get the gateway using serialNumber
+        const gateway = await Gateway.repository.get(serialNumber);
+        return {...gateway, peripherals: gateway.peripherals};
+    }
+
+    // If serialNumber is not passed then will return all gateways
     //Get all gateways from storage
     const gateways = await Gateway.repository.all();
 
     return gateways.map(gateway => {
         return {...gateway, peripherals: gateway.peripherals};
     });
-};
-//For get a single gateway
-const get = async (req) => {
-    const {serialNumber} = req.params;
-    //Get the gateway using serialNumber
-    const gateway = await Gateway.repository.get(serialNumber);
-    return {...gateway, peripherals: gateway.peripherals};
+
 };
 //For create a new gateway
 const add = async (req) => {
@@ -46,11 +50,9 @@ const update = async (req) => {
         throw new ValidationError(errors.array());
     }
 
-    const {serialNumber} = req.params;
+    const {serialNumber, name, ipv4} = req.body;
     //Get the gateway using serialNumber
     let gateway = await Gateway.repository.get(serialNumber);
-
-    const {name, ipv4} = req.body;
 
     //Update the gateway with the new values
     await Gateway.repository.update(gateway, name, ipv4);
@@ -59,7 +61,7 @@ const update = async (req) => {
 };
 //For remove a gateway
 const remove = async (req) => {
-    const {serialNumber} = req.params;
+    const {serialNumber} = req.body;
 
     //Get the gateway using serialNumber
     let gateway = await Gateway.repository.get(serialNumber);
@@ -114,7 +116,6 @@ const validate = (method) => {
 };
 
 module.exports = {
-    getAll,
     get,
     add,
     update,

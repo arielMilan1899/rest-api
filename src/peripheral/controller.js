@@ -29,11 +29,10 @@ const update = async (req) => {
         throw new ValidationError(errors.array());
     }
 
-    const id = req.params.id;
+    const {id, vendor, status, gatewaySerialNumber} = req.body;
     //Get the peripheral using id
     let peripheral = await Peripheral.repository.get(id);
 
-    const {vendor, status, gatewaySerialNumber} = req.body;
     //Update the peripheral with the new values
     await Peripheral.repository.update(peripheral, vendor, status, gatewaySerialNumber);
 
@@ -41,7 +40,7 @@ const update = async (req) => {
 };
 //For remove a peripheral
 const remove = async (req) => {
-    const id = req.params.id;
+    const {id} = req.body;
 
     //Get the peripheral using id
     let peripheral = await Peripheral.repository.get(id);
@@ -52,7 +51,7 @@ const remove = async (req) => {
     return 'Peripheral was successful deleted';
 };
 //For validate peripheral fields
-const validate = (method) => {
+const validate = () => {
     return [
         //Validate gatewaySerialNumber field
         //gatewaySerialNumber must be an not empty string
@@ -61,18 +60,22 @@ const validate = (method) => {
         body('gatewaySerialNumber')
             .isString().withMessage('gatewaySerialNumber field must be a valid string').bail()
             .not().isEmpty().withMessage('gatewaySerialNumber field must not be empty').bail()
-            .custom(async value => {
+            .custom(async (value, {req}) => {
                 let gateway;
-
                 try {
                     gateway = await Gateway.repository.get(value)
                 } catch ({errors}) {
                     throw errors;
                 }
 
-                if (method === 'add' && gateway.peripherals.length === MAX_GATEWAY_PERIPHERALS) {
-                    return Promise
-                        .reject(`A gateway must not have more than ${MAX_GATEWAY_PERIPHERALS} peripherals`);
+                const peripherals = gateway.peripherals;
+                if (peripherals.length === MAX_GATEWAY_PERIPHERALS) {
+                    const {id} = req.body;
+
+                    if (!id || !peripherals.find(peripheral => peripheral.id === id)) {
+                        return Promise
+                            .reject(`A gateway must not have more than ${MAX_GATEWAY_PERIPHERALS} peripherals`);
+                    }
                 }
                 return true;
             }),

@@ -75,6 +75,16 @@ class GatewayRepository {
             Peripheral.repository.remove(peripheral);
         }
     }
+
+    //Remove all gateways
+    static removeAll() {
+        for (let gateway of Storage.data) {
+            for (let peripheral of gateway.peripherals) {
+                Peripheral.repository.remove(peripheral);
+            }
+        }
+        Storage.data = [];
+    }
 }
 
 
