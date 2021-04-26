@@ -24,6 +24,15 @@ npm install
 npm start
 ```
 
+### Run Tests
+```bash
+npm test
+```
+
+## Continuous integration (CI) 
+
+* [Pipelines](https://github.com/arielMilan1899/rest-api/actions)
+
 ## Usage Guide
 
 ### Gateway endpoints
@@ -37,8 +46,3 @@ npm start
 * [Add a peripheral](docs/peripherals/add.md) : `POST /peripherals/add`
 * [Update a peripheral](docs/peripherals/update.md) : `PUT /peripherals/update`
 * [Remove a peripheral](docs/peripherals/remove.md) : `PUT /peripherals/remove`
-
-### Run Tests
-```bash
-npm test
-```
