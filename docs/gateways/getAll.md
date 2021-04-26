@@ -5,6 +5,11 @@ Used to get all stored gateways
 
 **Method** : `GET`
 
+**Usage** : 
+```bash
+curl -X GET -H 'Content-Type: application/json' /gateways
+```
+
 ## Success Responses
 
 **Code** : `200 OK`

@@ -7,7 +7,7 @@ Used to update a single peripheral
 
 **Usage** : 
 ```bash
-curl -X PUT -H 'Content-Type: application/json' -d '{"vendor":"vendor", "status":"offline", "gatewaySerialNumber":"serialNumber"}' /peripherals/update
+curl -X PUT -H 'Content-Type: application/json' -d '{"id":0, "vendor":"vendor", "status":"offline", "gatewaySerialNumber":"serialNumber"}' /peripherals/update
 ```
 
 **Parameters constrain** :

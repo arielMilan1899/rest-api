@@ -7,7 +7,7 @@ Used to update a single gateway
 
 **Usage** : 
 ```bash
-curl -X PUT -H 'Content-Type: application/json' -d '{"name":"name", "ipv4":"192.168.100.14"}' /gateways/update
+curl -X PUT -H 'Content-Type: application/json' -d '{"serialNumber":"serialNumber", "name":"name", "ipv4":"192.168.100.14"}' /gateways/update
 ```
 
 **Parameters constrain** :

@@ -11,7 +11,7 @@ Used to remove a single peripheral
 
 **Usage** : 
 ```bash
-curl -X DELETE -H 'Content-Type: application/json' /peripherals/remove
+curl -X DELETE -H 'Content-Type: application/json' -d {"id":0} /peripherals/remove
 ```
 
 ### Success Responses

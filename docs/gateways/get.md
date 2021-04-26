@@ -9,6 +9,11 @@ Used to get a single stored gateway providing their serialNumber
 
 **Method** : `GET`
 
+**Usage** : 
+```bash
+curl -X GET -H 'Content-Type: application/json' -d '{"serialNumber":"serialNumber"}' /gateways
+```
+
 ### Success Responses
 
 **Code** : `200 OK`
@@ -18,7 +23,7 @@ Used to get a single stored gateway providing their serialNumber
 {
    "status":200,
    "data":{
-      "serialNumber":"serialNumber 1",
+      "serialNumber":"serialNumber",
       "name":"name 1",
       "ipv4":"192.168.100.13",
       "peripherals":[
