@@ -1,18 +1,8 @@
 {
+  "name": "rest-api",
+  "builds": [{ "src": "index.js", "use": "@now/node-server" }],
   "version": 2,
   "github": {
     "enabled": true
-  },
-  "builds": [
-    {
-      "src": "src/index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/index.js"
-    }
-  ]
+  }
 }
