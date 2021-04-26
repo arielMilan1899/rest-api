@@ -1,46 +1,36 @@
 //Peripheral models.js
-const {DoesNotExists} = require("../helpers/error");
+const {DoesNotExists, MaxGatewayPeripheralsError} = require("../helpers/error");
+const {MAX_GATEWAY_PERIPHERALS} = require('../../config');
 
 //Peripheral object
 class Peripheral {
-    //All stored peripherals
-    static #peripherals = [];
-    //Current id for peripherals
-    static #currentId = 0;
 
-    constructor(vendor, status, gatewaySerialNumber) {
-        this.id = Peripheral.#currentId;
+    constructor(id, vendor, status, gatewaySerialNumber) {
+        this.id = id;
         this.vendor = vendor;
         this.status = status;
         //Foreign key to gateway
         this.gatewaySerialNumber = gatewaySerialNumber;
         this.createdOn = Date.now();
-
-        //push the new gateway to storage and increment currentId
-        Peripheral.#peripherals.push(this);
-        Peripheral.#currentId += 1;
     }
 
-    //Update gateway
-    update(vendor, status, gatewaySerialNumber) {
-        this.vendor = vendor;
-        this.status = status;
-        this.gatewaySerialNumber = gatewaySerialNumber;
+    static get repository() {
+        return PeripheralRepository
     }
+}
 
-    //Remove gateway from storage
-    remove() {
-        Peripheral.#peripherals = Peripheral.#peripherals.filter(value => value.id !== this.id);
-    }
+class Storage {
+    //All stored peripherals
+    static data = [];
+    //Current id for peripherals
+    static currentId = 0;
+}
 
-    //Get all stored peripherals by a gatewaySerialNumber
-    static filter(gatewaySerialNumber) {
-        return Peripheral.#peripherals.filter(value => value.gatewaySerialNumber === gatewaySerialNumber);
-    }
+class PeripheralRepository {
 
     //Get a single peripheral by id
     static get(id) {
-        const peripheral = Peripheral.#peripherals.find((peripheral) => peripheral.id === id);
+        const peripheral = Storage.data.find((peripheral) => peripheral.id === id);
 
         if (!peripheral) {
             throw new DoesNotExists(Peripheral.name)
@@ -48,6 +38,41 @@ class Peripheral {
 
         return peripheral;
     }
+
+    //Get all stored peripherals by a gatewaySerialNumber
+    static filter(gatewaySerialNumber) {
+        return Storage.data.filter(value => value.gatewaySerialNumber === gatewaySerialNumber);
+    }
+
+    //Add peripheral
+    static add(vendor, status, gatewaySerialNumber) {
+
+        const gateway = Gateway.repository.get(gatewaySerialNumber);
+
+        if (gateway.peripherals.length === MAX_GATEWAY_PERIPHERALS) {
+            throw new MaxGatewayPeripheralsError();
+        }
+
+        const peripheral = new Peripheral(Storage.currentId++, vendor, status, gatewaySerialNumber);
+
+        Storage.data.push(peripheral);
+
+        return peripheral;
+    }
+
+    //Update peripheral
+    static update(peripheral, vendor, status, gatewaySerialNumber) {
+        peripheral.vendor = vendor;
+        peripheral.status = status;
+        peripheral.gatewaySerialNumber = gatewaySerialNumber;
+    }
+
+    //Remove peripheral from storage
+    static remove(peripheral) {
+        Storage.data = Storage.data.filter(value => value.id !== peripheral.id);
+    }
+
+
 }
 
 module.exports = {

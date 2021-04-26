@@ -6,7 +6,10 @@ const {validateIpv4} = require("../helpers/validator");
 
 //For get all gateways
 const getAll = async () => {
-    return Gateway.all().map(gateway => {
+    //Get all gateways from storage
+    const gateways = await Gateway.repository.all();
+
+    return gateways.map(gateway => {
         return {...gateway, peripherals: gateway.peripherals};
     });
 };
@@ -14,7 +17,7 @@ const getAll = async () => {
 const get = async (req) => {
     const {serialNumber} = req.params;
     //Get the gateway using serialNumber
-    const gateway = Gateway.get(serialNumber);
+    const gateway = await Gateway.repository.get(serialNumber);
     return {...gateway, peripherals: gateway.peripherals};
 };
 //For create a new gateway
@@ -29,7 +32,8 @@ const add = async (req) => {
 
     const {serialNumber, name, ipv4} = req.body;
     //Initialize the new gateway object
-    const gateway = new Gateway(serialNumber, name, ipv4);
+    const gateway = await Gateway.repository.add(serialNumber, name, ipv4);
+
     return {...gateway, peripherals: gateway.peripherals};
 };
 //For update a gateway
@@ -44,12 +48,12 @@ const update = async (req) => {
 
     const {serialNumber} = req.params;
     //Get the gateway using serialNumber
-    let gateway = await Gateway.get(serialNumber);
+    let gateway = await Gateway.repository.get(serialNumber);
 
     const {name, ipv4} = req.body;
 
     //Update the gateway with the new values
-    gateway.update(name, ipv4);
+    await Gateway.repository.update(gateway, name, ipv4);
 
     return {...gateway, peripherals: gateway.peripherals};
 };
@@ -58,10 +62,10 @@ const remove = async (req) => {
     const {serialNumber} = req.params;
 
     //Get the gateway using serialNumber
-    let gateway = await Gateway.get(serialNumber);
+    let gateway = await Gateway.repository.get(serialNumber);
 
     //Remove the gateway from the storage
-    await gateway.remove();
+    await Gateway.repository.remove(gateway);
 
     return 'Gateway was successful deleted';
 };
@@ -89,7 +93,7 @@ const validate = (method) => {
         .isString().withMessage('serialNumber field must be a valid string').bail()
         .not().isEmpty().withMessage('serialNumber field must not be empty').bail()
         .custom(async serialNumber => {
-            const exists = await Gateway.exists(serialNumber);
+            const exists = await Gateway.repository.exists(serialNumber);
 
             if (!exists) {
                 return true;
