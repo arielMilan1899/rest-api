@@ -11,10 +11,18 @@ devices.
 
 **Database** : in-memory
 
-**Automated build** : Solution of choice
+## Download & Run on local
 
+### Clone the repository, install node packages and run the api
+```bash
+//on local
+git clone https://github.com/arielMilan1899/rest-api.git
+cd rest-api
+npm install
+npm start
+```
 
-## Open Endpoints
+## Usage Guide
 
 ### Gateway endpoints
 * [Get all gateways](docs/gateways/getAll.md) : `GET /gateways/`

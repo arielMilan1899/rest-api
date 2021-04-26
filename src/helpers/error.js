@@ -1,5 +1,4 @@
 //Helper errors for api
-const {MAX_GATEWAY_PERIPHERALS} = require('../../config');
 
 class BaseError extends Error {
     constructor(status, errors) {
@@ -32,18 +31,9 @@ class UniqueConstrainError extends BaseError {
     }
 }
 
-class MaxGatewayPeripheralsError extends BaseError {
-    constructor() {
-        const errors = `A gateway must not have more than ${MAX_GATEWAY_PERIPHERALS} peripherals`;
-        const status = 500;
-        super(status, errors);
-    }
-}
-
 module.exports = {
     BaseError,
     DoesNotExists,
     ValidationError,
     UniqueConstrainError,
-    MaxGatewayPeripheralsError,
 };

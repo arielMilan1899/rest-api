@@ -1,6 +1,5 @@
 //Peripheral models.js
-const {DoesNotExists, MaxGatewayPeripheralsError} = require("../helpers/error");
-const {MAX_GATEWAY_PERIPHERALS} = require('../../config');
+const {DoesNotExists} = require("../helpers/error");
 
 //Peripheral object
 class Peripheral {
@@ -46,12 +45,6 @@ class PeripheralRepository {
 
     //Add peripheral
     static add(vendor, status, gatewaySerialNumber) {
-
-        const gateway = Gateway.repository.get(gatewaySerialNumber);
-
-        if (gateway.peripherals.length === MAX_GATEWAY_PERIPHERALS) {
-            throw new MaxGatewayPeripheralsError();
-        }
 
         const peripheral = new Peripheral(Storage.currentId++, vendor, status, gatewaySerialNumber);
 

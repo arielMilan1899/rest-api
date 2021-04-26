@@ -1,4 +1,4 @@
-# Get single Gateways
+# Get single Gateway
 Used to get a single stored gateway providing their serialNumber
 
 **URL** : `/gateways/:serialNumber`
@@ -41,4 +41,3 @@ Used to get a single stored gateway providing their serialNumber
    "errors":"Gateway does not exists"
 }
 ```
-
