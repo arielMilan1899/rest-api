@@ -1,16 +1,18 @@
 # Update a Gateway
 Used to update a single gateway
 
-**URL** : `/gateways/update/:serialNumber`
+**URL** : `/gateways/update`
 
 **Method** : `PUT`
 
 **Usage** : 
 ```bash
-curl -X PUT -H 'Content-Type: application/json' -d '{"name":"name", "ipv4":"192.168.100.14"}' /gateways/update/:serialNumber
+curl -X PUT -H 'Content-Type: application/json' -d '{"name":"name", "ipv4":"192.168.100.14"}' /gateways/update
 ```
 
 **Parameters constrain** :
+
+`serialNumber` : Must be an unique not empty string
 
 `name` : Must be a not empty string
 

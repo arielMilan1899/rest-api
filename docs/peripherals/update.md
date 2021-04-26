@@ -1,16 +1,18 @@
 # Update a Peripheral
 Used to update a single peripheral
 
-**URL** : `/peripherals/update/:id`
+**URL** : `/peripherals/update`
 
 **Method** : `PUT`
 
 **Usage** : 
 ```bash
-curl -X PUT -H 'Content-Type: application/json' -d '{"vendor":"vendor", "status":"offline", "gatewaySerialNumber":"serialNumber"}' /peripherals/update/:id
+curl -X PUT -H 'Content-Type: application/json' -d '{"vendor":"vendor", "status":"offline", "gatewaySerialNumber":"serialNumber"}' /peripherals/update
 ```
 
 **Parameters constrain** :
+
+`id` : Must be a valid ID
 
 `vendor` : Must be a not empty string
 

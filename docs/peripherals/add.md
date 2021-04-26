@@ -1,13 +1,13 @@
 # Update a Peripheral
 Used to add a single peripheral
 
-**URL** : `/peripherals/add/:id`
+**URL** : `/peripherals/add`
 
 **Method** : `POST`
 
 **Usage** : 
 ```bash
-curl -X POST -H 'Content-Type: application/json' -d '{"vendor":"vendor", "status":"online", "gatewaySerialNumber":"serialNumber"}' /peripherals/add/:id
+curl -X POST -H 'Content-Type: application/json' -d '{"vendor":"vendor", "status":"online", "gatewaySerialNumber":"serialNumber"}' /peripherals/add
 ```
 
 **Parameters constrain** :

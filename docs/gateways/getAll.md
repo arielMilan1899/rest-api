@@ -1,7 +1,7 @@
 # Get all Gateways
 Used to get all stored gateways
 
-**URL** : `/gateways/`
+**URL** : `/gateways`
 
 **Method** : `GET`
 

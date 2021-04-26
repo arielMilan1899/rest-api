@@ -1,13 +1,17 @@
 # Remove a Gateway
 Used to remove a single gateway and their peripherals
 
-**URL** : `/gateways/remove/:serialNumber`
+**URL** : `/gateways/remove`
+
+**Parameters constrain** :
+
+`serialNumber` : Must be an unique not empty string
 
 **Method** : `DELETE`
 
 **Usage** : 
 ```bash
-curl -X DELETE -H 'Content-Type: application/json' /gateways/remove/:serialNumber
+curl -X DELETE -H 'Content-Type: application/json' /gateways/remove
 ```
 
 ### Success Responses

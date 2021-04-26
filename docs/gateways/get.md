@@ -1,7 +1,11 @@
 # Get single Gateway
 Used to get a single stored gateway providing their serialNumber
 
-**URL** : `/gateways/:serialNumber`
+**URL** : `/gateways`
+
+**Parameters constrain** :
+
+`serialNumber` : Must be an unique not empty string
 
 **Method** : `GET`
 

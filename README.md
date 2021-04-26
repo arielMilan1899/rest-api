@@ -30,15 +30,15 @@ npm test
 ## Usage Guide
 
 ### Gateway endpoints
-* [Get all gateways](docs/gateways/getAll.md) : `GET /gateways/`
-* [Get single gateway](docs/gateways/get.md) : `GET /gateways/:serialNumber`
+* [Get all gateways](docs/gateways/getAll.md) : `GET /gateways`
+* [Get single gateway](docs/gateways/get.md) : `GET /gateways`
 * [Add a gateway](docs/gateways/add.md) : `POST /gateways/add`
-* [Update a gateway](docs/gateways/update.md) : `PUT /gateways/update/:serialNumber`
-* [Remove a gateway](docs/gateways/remove.md) : `PUT /gateways/remove/:serialNumber`
+* [Update a gateway](docs/gateways/update.md) : `PUT /gateways/update`
+* [Remove a gateway](docs/gateways/remove.md) : `PUT /gateways/remove`
 
 ### Peripheral endpoints
 * [Add a peripheral](docs/peripherals/add.md) : `POST /peripherals/add`
-* [Update a peripheral](docs/peripherals/update.md) : `PUT /peripherals/update/:id`
-* [Remove a peripheral](docs/peripherals/remove.md) : `PUT /peripherals/remove/:id`
+* [Update a peripheral](docs/peripherals/update.md) : `PUT /peripherals/update`
+* [Remove a peripheral](docs/peripherals/remove.md) : `PUT /peripherals/remove`
 
 

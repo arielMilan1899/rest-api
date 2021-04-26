@@ -1,13 +1,17 @@
 # Remove a Peripheral
 Used to remove a single peripheral
 
-**URL** : `/peripherals/remove/:id`
+**URL** : `/peripherals/remove`
+
+**Parameters constrain** :
+
+`id` : Must be a valid ID
 
 **Method** : `DELETE`
 
 **Usage** : 
 ```bash
-curl -X DELETE -H 'Content-Type: application/json' /peripherals/remove/:id
+curl -X DELETE -H 'Content-Type: application/json' /peripherals/remove
 ```
 
 ### Success Responses
