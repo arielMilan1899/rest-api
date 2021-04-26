@@ -11,6 +11,8 @@ devices.
 
 **Database** : in-memory
 
+**Testing** : Testing the REST API using Mocha and Chai
+
 ## Download & Run on local
 
 ### Clone the repository, install node packages and run the api
@@ -20,11 +22,6 @@ git clone https://github.com/arielMilan1899/rest-api.git
 cd rest-api
 npm install
 npm start
-```
-
-### Run Tests
-```bash
-npm test
 ```
 
 ## Usage Guide
@@ -41,4 +38,7 @@ npm test
 * [Update a peripheral](docs/peripherals/update.md) : `PUT /peripherals/update`
 * [Remove a peripheral](docs/peripherals/remove.md) : `PUT /peripherals/remove`
 
-
+### Run Tests
+```bash
+npm test
+```
