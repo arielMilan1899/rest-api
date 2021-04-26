@@ -13,6 +13,8 @@ devices.
 
 **Testing** : Testing the REST API using Mocha and Chai
 
+**Automated build** : Vercel
+
 ## Download & Run on local
 
 ### Clone the repository, install node packages and run the api
@@ -32,6 +34,10 @@ npm test
 ## Continuous integration (CI) 
 
 * [Pipelines](https://github.com/arielMilan1899/rest-api/actions)
+
+## Online build
+
+* [rest-api](https://rest-api-theta.vercel.app/)
 
 ## Usage Guide
 
