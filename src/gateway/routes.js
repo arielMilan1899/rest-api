@@ -1,17 +1,18 @@
 //Gateway routes.js
-const router = require('express').Router();
+const {router} = require("../helpers/router");
 const controller = require('./controller');
 
+
 //route for get all gateways
-router.route('/').get(controller.index);
+router('/', 'get', [], controller.getAll);
 //route for get a single gateway by serialNumber
-router.route('/:serialNumber').get(controller.get);
+router('/:serialNumber', 'get', [], controller.get);
 //route for create a gateway
-router.route('/add').post(controller.validate('add'), controller.add);
+router('/add', 'post', controller.validate('add'), controller.add);
 //route for update a gateway
-router.route('/update/:serialNumber').put(controller.validate('update'), controller.update);
+router('/update/:serialNumber', 'put', controller.validate('update'), controller.update);
 //route for remove a gateway
-router.route('/remove/:serialNumber').delete(controller.remove);
+router('/remove/:serialNumber', 'delete', [], controller.remove);
 
 //Export Gateway routes
-module.exports = router;
+module.exports = router.routes;

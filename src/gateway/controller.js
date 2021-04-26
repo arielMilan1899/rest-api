@@ -4,117 +4,62 @@ const {Gateway} = require('./models');
 const {ValidationError} = require("../helpers/error");
 const {validateIpv4} = require("../helpers/validator");
 
-//For index
-const index = async (req, res, next) => {
-    let gateways;
-    try {
-        //Get all gateways
-        gateways = await Gateway.all();
-    } catch (error) {
-        //Pass the error to next middleware
-        return next(error);
-    }
-
-    const status = 200;
-    //Return the json data
-    res.status(status).json({
-        status,
-        data: gateways.map(gateway => {
-            return {peripherals: gateway.peripherals, ...gateway}
-        })
-    });
+//For get all gateways
+const getAll = async () => {
+    return Gateway.all();
 };
 //For get a single gateway
-const get = async (req, res, next) => {
+const get = async (req) => {
     const {serialNumber} = req.params;
-
     //Get the gateway using serialNumber
-    let gateway;
-    try {
-        gateway = await Gateway.get(serialNumber)
-    } catch (err) {
-        return next(err);
-    }
-
-    const status = 200;
-    //Return the json data
-    res.status(status).json({
-        status,
-        data: {peripherals: gateway.peripherals, ...gateway}
-    });
+    return Gateway.get(serialNumber);
 };
 //For create a new gateway
-const add = async (req, res, next) => {
+const add = async (req) => {
     // validate request
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
         //Pass the errors to next middleware
-        return next(new ValidationError(errors.array()));
+        throw new ValidationError(errors.array());
     }
 
     const {serialNumber, name, ipv4} = req.body;
     //Initialize the new gateway object
-    const gateway = new Gateway(serialNumber, name, ipv4);
-
-    const status = 200;
-    //Return the json data
-    res.status(status).json({
-        status,
-        data: {peripherals: gateway.peripherals, ...gateway}
-    });
+    return new Gateway(serialNumber, name, ipv4);
 };
 //For update a gateway
-const update = async (req, res, next) => {
+const update = async (req) => {
     // validate request
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
         //Pass the error to next middleware
-        return next(new ValidationError(errors.array()));
+        throw new ValidationError(errors.array());
     }
 
     const {serialNumber} = req.params;
     //Get the gateway using serialNumber
-    let gateway;
-    try {
-        gateway = await Gateway.get(serialNumber)
-    } catch (err) {
-        return next(err);
-    }
+    let gateway = await Gateway.get(serialNumber);
 
     const {name, ipv4} = req.body;
 
     //Update the gateway with the new values
     gateway.update(name, ipv4);
 
-    const status = 200;
-    //Return the json data
-    res.status(status).json({
-        status,
-        data: {peripherals: gateway.peripherals, ...gateway}
-    });
+    return gateway;
 };
 //For remove a gateway
-const remove = async (req, res, next) => {
+const remove = async (req) => {
     const {serialNumber} = req.params;
 
     //Get the gateway using serialNumber
-    let gateway;
-    try {
-        gateway = await Gateway.get(serialNumber);
-        //Remove the gateway from the storage and they peripherals
-        await gateway.remove();
-    } catch (err) {
-        return next(err);
-    }
+    let gateway = await Gateway.get(serialNumber);
 
-    const status = 200;
-    //Return the json data
-    res.status(status).json({
-        status,
-        data: gateway
-    });
+    //Remove the gateway from the storage
+    await gateway.remove();
+
+    return 'Gateway was successful deleted';
 };
 //For validate gateway fields
 const validate = (method) => {
@@ -161,7 +106,7 @@ const validate = (method) => {
 };
 
 module.exports = {
-    index,
+    getAll,
     get,
     add,
     update,
