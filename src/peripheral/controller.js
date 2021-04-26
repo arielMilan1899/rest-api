@@ -61,9 +61,10 @@ const validate = (method) => {
             .isString().withMessage('gatewaySerialNumber field must be a valid string').bail()
             .not().isEmpty().withMessage('gatewaySerialNumber field must not be empty').bail()
             .custom(async value => {
+                let gateway;
 
                 try {
-                    await Gateway.get(value)
+                    gateway = await Gateway.get(value)
                 } catch ({errors}) {
                     throw errors;
                 }

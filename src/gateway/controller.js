@@ -6,13 +6,16 @@ const {validateIpv4} = require("../helpers/validator");
 
 //For get all gateways
 const getAll = async () => {
-    return Gateway.all();
+    return Gateway.all().map(gateway => {
+        return {...gateway, peripherals: gateway.peripherals};
+    });
 };
 //For get a single gateway
 const get = async (req) => {
     const {serialNumber} = req.params;
     //Get the gateway using serialNumber
-    return Gateway.get(serialNumber);
+    const gateway = Gateway.get(serialNumber);
+    return {...gateway, peripherals: gateway.peripherals};
 };
 //For create a new gateway
 const add = async (req) => {
@@ -26,7 +29,8 @@ const add = async (req) => {
 
     const {serialNumber, name, ipv4} = req.body;
     //Initialize the new gateway object
-    return new Gateway(serialNumber, name, ipv4);
+    const gateway = new Gateway(serialNumber, name, ipv4);
+    return {...gateway, peripherals: gateway.peripherals};
 };
 //For update a gateway
 const update = async (req) => {
@@ -47,7 +51,7 @@ const update = async (req) => {
     //Update the gateway with the new values
     gateway.update(name, ipv4);
 
-    return gateway;
+    return {...gateway, peripherals: gateway.peripherals};
 };
 //For remove a gateway
 const remove = async (req) => {

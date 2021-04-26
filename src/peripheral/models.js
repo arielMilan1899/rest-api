@@ -12,6 +12,7 @@ class Peripheral {
         this.id = Peripheral.#currentId;
         this.vendor = vendor;
         this.status = status;
+        //Foreign key to gateway
         this.gatewaySerialNumber = gatewaySerialNumber;
         this.createdOn = Date.now();
 

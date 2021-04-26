@@ -21,8 +21,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 //Use API routes in the App
-app.use('/gateway', gatewayRoutes);
-app.use('/peripheral', peripheralRoutes);
+app.use('/gateways', gatewayRoutes);
+app.use('/peripherals', peripheralRoutes);
 
 //Use error handler
 app.use((err, req, res, next) => {
