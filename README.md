@@ -49,10 +49,10 @@ This is the production build:
 * [Get single gateway](docs/gateways/get.md) : `GET /gateways/:serialNumber`
 * [Add a gateway](docs/gateways/add.md) : `POST /gateways/add`
 * [Update a gateway](docs/gateways/update.md) : `PUT /gateways/update`
-* [Remove a gateway](docs/gateways/remove.md) : `PUT /gateways/remove`
+* [Remove a gateway](docs/gateways/remove.md) : `DELETE /gateways/remove`
 
 ### Peripheral endpoints
 * [Get single peripheral](docs/peripherals/get.md) : `GET /peripherals/:id`
 * [Add a peripheral](docs/peripherals/add.md) : `POST /peripherals/add`
 * [Update a peripheral](docs/peripherals/update.md) : `PUT /peripherals/update`
-* [Remove a peripheral](docs/peripherals/remove.md) : `PUT /peripherals/remove`
+* [Remove a peripheral](docs/peripherals/remove.md) : `DELETE /peripherals/remove`

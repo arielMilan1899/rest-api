@@ -11,7 +11,7 @@ Used to remove a single gateway and their peripherals
 
 **Usage** : 
 ```bash
-curl -X DELETE -H 'Content-Type: application/json' /gateways/remove
+curl -X DELETE -H 'Content-Type: application/json' -d {"serialNumber":"serialNumber"} /gateways/remove
 ```
 
 ### Success Responses
