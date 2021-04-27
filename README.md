@@ -13,9 +13,7 @@ devices.
 
 **Testing** : Testing the REST API using Mocha and Chai
 
-**Automated build** : Vercel
-
-**Demo Basic Web** 
+**Automated build and Demo Basic Web**  : [Vercel](https://web-phi-lovat.vercel.app/)
 
 ## Download & Run on local
 
