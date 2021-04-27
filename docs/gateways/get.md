@@ -11,7 +11,7 @@ Used to get a single stored gateway providing their serialNumber
 
 **Usage** : 
 ```bash
-curl -X GET -H 'Content-Type: application/json' -d '{"serialNumber":"serialNumber"}' /gateways/:serialNumber
+curl -X GET -H 'Content-Type: application/json' /gateways/:serialNumber
 ```
 
 ### Success Responses

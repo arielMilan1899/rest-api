@@ -299,6 +299,32 @@ describe("Test Peripherals endpoints", () => {
         done();
     });
 
+    describe("Test GET route /peripherals/:id", () => {
+        it("It should return the peripheral", (done) => {
+            Peripheral.repository.add('vendor', 'online', 'serialNumber');
+            chai.request(app)
+                .get("/peripherals/0")
+                .end((err, response) => {
+                    response.should.have.status(200);
+                    const peripheral = response.body.data;
+                    peripheral.gatewaySerialNumber.should.be.eq('serialNumber');
+                    peripheral.status.should.be.eq('online');
+                    peripheral.vendor.should.be.eq('vendor');
+                    peripheral.id.should.be.eq(0);
+                    done();
+                });
+        });
+        it("It should return an error", (done) => {
+            chai.request(app)
+                .get("/peripherals/0")
+                .end((err, response) => {
+                    response.should.have.status(404);
+                    response.body.errors.should.be.eq('Peripheral does not exists');
+                    done();
+                });
+        });
+    });
+
     describe("Test POST route /peripherals/add", () => {
         it("It should create a new peripherals", (done) => {
             const data = {

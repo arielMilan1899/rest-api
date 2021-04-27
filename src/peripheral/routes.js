@@ -2,6 +2,8 @@
 const router = require("../helpers/router").createRouter();
 const controller = require('./controller');
 
+//route for get a single peripheral by id
+router.addRoute('/:id', 'get', [], controller.get);
 //route for create a peripheral
 router.addRoute('/add', 'post', controller.validate(), controller.add);
 //route for update a peripheral

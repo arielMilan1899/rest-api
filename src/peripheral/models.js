@@ -34,7 +34,7 @@ class PeripheralRepository {
 
     //Get a single peripheral by id
     static get(id) {
-        const peripheral = Storage.data.find((peripheral) => peripheral.id === id);
+        const peripheral = Storage.data.find((peripheral) => peripheral.id.toString() === id.toString());
 
         if (!peripheral) {
             throw new DoesNotExists(Peripheral.name)

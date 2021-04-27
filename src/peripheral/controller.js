@@ -5,6 +5,13 @@ const {ValidationError} = require("../helpers/error");
 const {Gateway} = require('../gateway/models');
 const {MAX_GATEWAY_PERIPHERALS} = require('../../config');
 
+//For get a single peripheral
+const get = async (req) => {
+    const {id} = req.params;
+
+    //Get the peripheral using id
+    return Peripheral.repository.get(id);
+};
 //For create a new peripheral
 const add = async (req) => {
     // validate request
@@ -92,6 +99,7 @@ const validate = () => {
 };
 
 module.exports = {
+    get,
     add,
     update,
     remove,
