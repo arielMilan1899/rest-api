@@ -34,7 +34,7 @@ const app = express();
 
 app.get('/', async (req, res) => {
   const data = await useProxy(req, 'POST')
-  res.status(200).json(data)
+  res.status(200).send(JSON.stringify(data))
 });
 
 //Use cors
